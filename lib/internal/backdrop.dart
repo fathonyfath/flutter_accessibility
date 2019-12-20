@@ -92,9 +92,7 @@ class _BackdropScaffoldState extends State<BackdropScaffold>
   }
 
   void fling() {
-    setState(() {
-
-    });
+    setState(() {});
     controller.fling(velocity: isTopPanelVisible ? -1.0 : 1.0);
   }
 
