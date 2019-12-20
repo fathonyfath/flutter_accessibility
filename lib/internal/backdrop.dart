@@ -92,9 +92,7 @@ class _BackdropScaffoldState extends State<BackdropScaffold>
   }
 
   void fling() {
-    setState(() {
-
-    });
+    setState(() {});
     controller.fling(velocity: isTopPanelVisible ? -1.0 : 1.0);
   }
 
@@ -166,14 +164,17 @@ class _BackdropScaffoldState extends State<BackdropScaffold>
   }
 
   Widget _buildFrontPanel(BuildContext context) {
-    return Material(
-      elevation: 12.0,
-      borderRadius: widget.frontLayerBorderRadius,
-      child: Stack(
-        children: <Widget>[
-          widget.frontLayer,
-          _buildInactiveLayer(context),
-        ],
+    return ExcludeSemantics(
+      excluding: isBackPanelVisible,
+      child: Material(
+        elevation: 12.0,
+        borderRadius: widget.frontLayerBorderRadius,
+        child: Stack(
+          children: <Widget>[
+            widget.frontLayer,
+            _buildInactiveLayer(context),
+          ],
+        ),
       ),
     );
   }

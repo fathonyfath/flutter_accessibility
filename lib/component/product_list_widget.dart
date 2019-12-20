@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_accessibility/component/product_widget.dart';
+import 'package:flutter_accessibility/internal/backdrop.dart';
 import 'package:flutter_accessibility/model/app_state_model.dart';
 import 'package:flutter_accessibility/model/product.dart';
 
@@ -15,18 +16,23 @@ class ProductListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: ListView.builder(
-          padding: EdgeInsets.all(8.0),
-          itemCount: products.length,
-          itemBuilder: (context, position) {
-            return ProductWidget(
-              onItemClick: (product) {
-                _onMenuProductCLick(context, product);
-              },
-              product: products[position],
-            );
-          }),
+    final backdrop = Backdrop.of(context);
+
+    return ExcludeSemantics(
+      excluding: backdrop.isBackPanelVisible,
+      child: Center(
+        child: ListView.builder(
+            padding: EdgeInsets.all(8.0),
+            itemCount: products.length,
+            itemBuilder: (context, position) {
+              return ProductWidget(
+                onItemClick: (product) {
+                  _onMenuProductCLick(context, product);
+                },
+                product: products[position],
+              );
+            }),
+      ),
     );
   }
 }

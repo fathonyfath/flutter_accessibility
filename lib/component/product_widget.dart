@@ -13,24 +13,28 @@ class ProductWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-        child: InkWell(
-      onTap: () {
-        onItemClick(product);
-      },
-      child: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Row(
-          children: <Widget>[
-            Text(
-              '${product.name(context)}',
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
-            ),
-            Spacer(),
-            Text(
-              '${formatCurrency.format(product.price)}',
-              style: TextStyle(fontSize: 16.0),
-            ),
-          ],
+        child: Semantics(
+      onTapHint: 'Add to cart',
+      button: true,
+      child: InkWell(
+        onTap: () {
+          onItemClick(product);
+        },
+        child: Padding(
+          padding: EdgeInsets.all(16.0),
+          child: Row(
+            children: <Widget>[
+              Text(
+                '${product.name(context)}',
+                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+              ),
+              Spacer(),
+              Text(
+                '${formatCurrency.format(product.price)}',
+                style: TextStyle(fontSize: 16.0),
+              ),
+            ],
+          ),
         ),
       ),
     ));

@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_accessibility/component/menu_widget.dart';
 import 'package:flutter_accessibility/internal/backdrop.dart';
 import 'package:flutter_accessibility/model/app_state_model.dart';
@@ -19,17 +19,22 @@ class MenuListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: ListView.builder(
-          itemCount: categories.length,
-          itemBuilder: (context, position) {
-            return MenuWidget(
-              category: categories[position],
-              onItemClick: (category) {
-                _onMenuItemClick(context, category);
-              },
-            );
-          }),
+    final backdrop = Backdrop.of(context);
+
+    return ExcludeSemantics(
+      excluding: backdrop.isTopPanelVisible,
+      child: Center(
+        child: ListView.builder(
+            itemCount: categories.length,
+            itemBuilder: (context, position) {
+              return MenuWidget(
+                category: categories[position],
+                onItemClick: (category) {
+                  _onMenuItemClick(context, category);
+                },
+              );
+            }),
+      ),
     );
   }
 }
